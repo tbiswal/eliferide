@@ -141,6 +141,8 @@ Passengers
 
 ```
   pip install faker
+  pip install geocoder
+  pip install mysql-connector-python
 ```
 
 ### Further optimization
