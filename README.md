@@ -17,13 +17,13 @@ You may assume as input a collection of rides. Each ride consists of pickup time
 - Input - a collection of rides.
 - Ride price per mile - 2$
 - Initially, take five drivers and create a database of drivers
-- Three passengers who already signed up and exist in the database
+- Three passengers who already signed up and existed in the database
 - If two drivers are at the exact location, then assign the driver who has fewer rides on that day
 - Design the solution for thousand rides
 
 ### Schema Design
 
-I will use MySql as a database provider
+I will use MySql as a database provider.
 
 #### Driver
 
@@ -56,31 +56,31 @@ FOREIGN KEY - driver_id(drivers table id column)
 
 FOREIGN KEY - passenger_id(passengers table id column)
 
-### Approach
+### Algorithm
 
-1.There is no conflict, e.g., we don't give the 2 different rides at 9 AM to the same driver
+1. There is no conflict, e.g., we don't give two different rides at 9 AM to the same driver
 
-- Combining driver_id and start_time(datetime) as unique can solve this issue
+- Combining driver_id and start_time(DateTime) as unique can solve this issue
 
-2.We want to give the ride a lower priced driver if possible.
+2. We want to give the ride to a lower-priced driver if possible.
 
 - Find out the list of available drivers for the new ride
   
-  - Check list of drivers present in the driver table but not in ride table which means they are new to app and have not started any ride yet
-  - Find all the drivers who already dropped the passengers in the ride table that means end_time is not empty
-- Calculate the nearest ride available for cheaper price
-  - The nearby location can be calculated using the distance between available driver's current location and pickup location.
+  - Checklist of drivers present in the driver table but not in the ride table, which means they are new to the app and have not started any rides yet
+  - Find all the drivers who already dropped the passengers in the ride table, which means end_time is not empty
+- Calculate the nearest ride available for a lower price
+  - The nearby location can be calculated using the distance between the available driver's current location and the pickup location.
 - Choose the shortest distance from the above step and assign the driver to that ride
   
-3.if we give a ride to pick up a passenger from New York time square and drop off the passenger at JFK airport to a driver, the next ride we give to the same driver should preferably pick up from JFK airport, this way, the driver doesn't have to drive a lot without a paying passenger on the car.
+3. if we give a ride to pick up a passenger from New York Time Square and drop off the passenger at JFK airport to a driver, the next ride we give to the same driver should preferably pick up from JFK airport; this way, the driver doesn't have to drive a lot without a paying passenger on the car.
   
-- The second step solution will solve the third problem as if the passenger will be near to drop off location then it will notify the driver if the drive is near to drop off location.
+- The second step solution will solve the third problem if the passenger is near the drop-off location, then it will notify the driver if the driver is near the drop-off location.
 
 ### What I have not considered
 
-- If two drivers are at the exact location, then assign the ride to the driver who has fewer rides on that day.
-- I have not considered the scalability rather focussed on MVP
-- I have not considered the velocity of the vehicle to calculate estimate duration
+- If two drivers are at the exact location, assign the ride to the driver with fewer rides on that day.
+- I have not considered the scalability; rather focussed on MVP
+- I have not considered the velocity of the vehicle to calculate the estimated duration
 
 ### MySql Query
 
@@ -145,6 +145,12 @@ Passengers
 
 ### Further optimization
 
-- Adding proper index to the table
+- Adding a proper index to the table
 - Proper error handling
 - Query optimization
+
+### Questions for reflection
+
+- What are the criteria for calculating the estimated ride duration? 
+- How will the system handle multiple rides with overlapping pickup times?
+- What is the process for adding new drivers to the system?
