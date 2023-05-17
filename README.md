@@ -60,18 +60,21 @@ FOREIGN KEY - passenger_id(passengers table id column)
 
 1.There is no conflict, e.g., we don't give the 2 different rides at 9 AM to the same driver
 
-- driver_id and start_time as unique can solve this issue
+- Combining driver_id and start_time(datetime) as unique can solve this issue
 
 2.We want to give the ride a lower priced driver if possible.
 
-- Check if driver_id is not assigned to any passenger in ride table and find out the list of drivers present in nearby pick_up location. The nearby location can be calculated using the difference of driver current location and pickup location.
+- Find out the list of available drivers for the new ride
+  
+  - Check list of drivers present in the driver table but not in ride table which means they are new to app and have not started any ride yet
+  - Find all the drivers who already dropped the passengers in the ride table that means end_time is not empty
+- Calculate the nearest ride available for cheaper price
+  - The nearby location can be calculated using the distance between available driver's current location and pickup location.
 - Choose the shortest distance from the above step and assign the driver to that ride
   
 3.if we give a ride to pick up a passenger from New York time square and drop off the passenger at JFK airport to a driver, the next ride we give to the same driver should preferably pick up from JFK airport, this way, the driver doesn't have to drive a lot without a paying passenger on the car.
   
 - The second step solution will solve the third problem as if the passenger will be near to drop off location then it will notify the driver if the drive is near to drop off location.
-
-4.Calculate estimate duration
 
 ### What I have not considered
 
@@ -106,10 +109,12 @@ FOREIGN KEY - passenger_id(passengers table id column)
     drop_address VARCHAR(200),
     drop_latitude FLOAT NOT NULL,
     drop_longitude FLOAT NOT NULL,
-    drop_location POINT,
+    estimate_duration TIME,
     start_time DATETIME DEFAULT CURRENT_TIMESTAMP,
     end_time DATETIME
   );
+  
+  ALTER TABLE rides ADD CONSTRAINT uk_ride_driver_assign UNIQUE (driver_id, start_time);
 ```
 
 ### Seeds
@@ -137,3 +142,9 @@ Passengers
 ```
   pip install faker
 ```
+
+### Further optimization
+
+- Adding proper index to the table
+- Proper error handling
+- Query optimization
