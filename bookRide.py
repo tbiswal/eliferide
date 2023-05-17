@@ -20,8 +20,10 @@ class BookRide:
     def confirm_booking(self):
         status = self.db_provider.insert_ride(ride_details)
         if status:
-            # print(f" Booking confirmed for {self.passenger_details.name}")
             print(f" Booking confirmed for {self.passenger_details['name']}")
+        else:
+            print(
+                f" There is an issue while booking ride for {self.passenger_details['name']}")
 
     def find_distance(self):
         print('')
@@ -43,17 +45,17 @@ print("------------------")
 
 
 ride_details = {
-    "driver_id": 1,
-    "passenger_id": 2,
+    "driver_id": 2,
+    "passenger_id": 1,
     "pickup_address": "Empire State Building",
     "pickup_latitude": 40.748817,
     "pickup_longitude": -73.985428,
     "drop_address": "Central Park, New York, NY 10022, USA",
     "drop_latitude": 40.782865,
     "drop_longitude": -73.965355,
-    "estimate_duration": "1:20:00",
-    "start_time": "2023-05-17 05:34:56",
-    "end_time": "2023-05-17 06:54:56",
+    "estimate_duration": "1:30:00",
+    "start_time": "2023-05-17 11:34:56",
+    "end_time": None,
 }
 
 
@@ -68,9 +70,9 @@ driver_details = {
 }
 
 rideOne = BookRide(
-        ride_details,
-        passenger_details,
-        driver_details,
-        DatabaseProvider()
-    )
+    ride_details,
+    passenger_details,
+    driver_details,
+    DatabaseProvider()
+)
 rideOne.confirm_booking()

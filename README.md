@@ -18,8 +18,8 @@ You may assume as input a collection of rides. Each ride consists of pickup time
 - Ride price per mile - 2$
 - Initially, take five drivers and create a database of drivers
 - Three passengers who already signed up and existed in the database
-- If two drivers are at the exact location, then assign the driver who has fewer rides on that day
 - Design the solution for thousand rides
+- Driver location can be tracked using geocoder library to get the current location using the IP address
 
 ### Schema Design
 
@@ -147,10 +147,11 @@ Passengers
 
 - Adding a proper index to the table
 - Proper error handling
-- Query optimization
+- SubQuery optimization using join
 
 ### Questions for reflection
 
 - What are the criteria for calculating the estimated ride duration? 
 - How will the system handle multiple rides with overlapping pickup times?
 - What is the process for adding new drivers to the system?
+- If two drivers are at the exact location, then assign the driver who has fewer rides on that day
