@@ -19,7 +19,8 @@ You may assume as input a collection of rides. Each ride consists of pickup time
 - Initially, take five drivers and create a database of drivers
 - Three passengers who already signed up and existed in the database
 - Design the solution for thousand rides
-- Driver location can be tracked using geocoder library to get the current location using the IP address
+- I will use random location(latitude and longitude) to simulate driver's location
+- The driver is closest to passenger's location will be considered as cheapest driver
 
 ### Schema Design
 
@@ -71,6 +72,7 @@ FOREIGN KEY - passenger_id(passengers table id column)
 - Calculate the nearest ride available for a lower price
   - The nearby location can be calculated using the distance between the available driver's current location and the pickup location.
 - Choose the shortest distance from the above step and assign the driver to that ride
+- Confirm booking
   
 3. if we give a ride to pick up a passenger from New York Time Square and drop off the passenger at JFK airport to a driver, the next ride we give to the same driver should preferably pick up from JFK airport; this way, the driver doesn't have to drive a lot without a paying passenger on the car.
   
@@ -80,7 +82,7 @@ FOREIGN KEY - passenger_id(passengers table id column)
 
 - If two drivers are at the exact location, assign the ride to the driver with fewer rides on that day.
 - I have not considered the scalability; rather focussed on MVP
-- I have not considered the velocity of the vehicle to calculate the estimated duration
+- I have not considered the velocity of the vehicle to calculate the estimated duration and price
 
 ### MySql Query
 
@@ -141,7 +143,6 @@ Passengers
 
 ```
   pip install faker
-  pip install geocoder
   pip install mysql-connector-python
 ```
 
@@ -150,10 +151,4 @@ Passengers
 - Adding a proper index to the table
 - Proper error handling
 - SubQuery optimization using join
-
-### Questions for reflection
-
-- What are the criteria for calculating the estimated ride duration? 
-- How will the system handle multiple rides with overlapping pickup times?
-- What is the process for adding new drivers to the system?
-- If two drivers are at the exact location, then assign the driver who has fewer rides on that day
+- Validation
