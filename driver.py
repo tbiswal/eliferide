@@ -15,12 +15,20 @@ class Drivers:
         longitude = round(random.uniform(-180, 180), 6)
         return latitude, longitude
 
-    def find_nearest_driver_id(self):
+    """
+    Find nearest driver to the passenger
+
+    Returns:
+        int: The driver id
+    """
+
+    def find_nearest_driver_id(self) -> int:
         self._drivers = self.driver_model.get_available_drivers(self.rides)
         lat1 = self.rides["pickup_latitude"]
         lon1 = self.rides["pickup_longitude"]
         driver_id_with_dist = {}
 
+        # Find the avialable drivers and their lat and lon
         for driver in self._drivers:
             lat2, lon2 = self.generate_coordinates()
             driver_id_with_dist[driver] = self.utils.calculate_distance(
@@ -28,18 +36,3 @@ class Drivers:
 
         min_pairs = min(driver_id_with_dist.items(), key=lambda item: item[1])
         return min_pairs[0]
-
-
-# ride_details = {
-#     "passenger_id": 1,
-#     "pickup_address": "Empire State Building",
-#     "pickup_latitude": 40.748817,
-#     "pickup_longitude": -73.985428,
-#     "drop_address": "Central Park, New York, NY 10022, USA",
-#     "drop_latitude": 40.782865,
-#     "drop_longitude": -73.965355,
-#     "estimate_duration": "1:20:00",
-# }
-
-# driver = Drivers(ride_details, DriverModel(), Utils())
-# print(driver.find_nearest_driver_id())
