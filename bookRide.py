@@ -1,6 +1,6 @@
 
 from faker import Faker
-from databaseProvider import DatabaseProvider
+from modelRide import RideModel
 from driver import Drivers
 
 
@@ -8,18 +8,18 @@ class BookRide:
     def __init__(
         self,
         ride_details: dict,
-        db_provider: DatabaseProvider,
+        ride_model: RideModel,
         drivers: Drivers
     ) -> str:
         self.ride_details = ride_details
-        self.db_provider = db_provider
+        self.ride_model = ride_model
         self.drivers = Drivers
 
     def confirm_booking(self):
         # Find driver for cheapest price and add to ride_details collection
         ride_details["driver_id"] = self.drivers.find_nearest_driver(
             ride_details)
-        status = self.db_provider.insert_ride(ride_details)
+        status = self.ride_model.insert_ride(ride_details)
         passenger_id = self.ride_details["passenger_id"]
 
         if status:
@@ -39,8 +39,5 @@ ride_details = {
     "estimate_duration": "1:20:00",
 }
 
-rideOne = BookRide(
-    ride_details,
-    DatabaseProvider()
-)
-rideOne.confirm_booking()
+ride = BookRide(ride_details, RideModel())
+ride.confirm_booking()

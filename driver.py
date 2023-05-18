@@ -1,13 +1,23 @@
-from databaseProvider import DatabaseProvider
+from modelDriver import DriverModel
+import random
 
 
 class Drivers:
-    def __init__(self, rides: dict, db_provider: DatabaseProvider):
-        self.db_provider = db_provider
+    def __init__(self, rides: dict, driver_model: DriverModel):
+        self.driver_model = driver_model
         self.rides = rides
+        self._drivers = []
 
-    def available_drivers(self):
-        return self.db_provider.get_available_rides(self.rides)
+    def generate_coordinates(self):
+        latitude = round(random.uniform(-90, 90), 6)
+        longitude = round(random.uniform(-180, 180), 6)
+        return latitude, longitude
+
+    def find_nearest_drivers(self):
+        self._drivers = self.driver_model.get_available_drivers(self.rides)
+        for driver in self._drivers:
+            print(driver)
+            print(self.generate_coordinates())
 
 
 ride_details = {
@@ -19,7 +29,7 @@ ride_details = {
     "drop_latitude": 40.782865,
     "drop_longitude": -73.965355,
     "estimate_duration": "1:20:00",
-}
+ }
 
-driver = Drivers(ride_details, DatabaseProvider())
-print(driver.available_drivers())
+driver = Drivers(ride_details, DriverModel())
+print(driver.find_nearest_drivers())
