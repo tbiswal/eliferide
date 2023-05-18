@@ -24,19 +24,22 @@ class BookRide:
         passenger_id = self.ride_details["passenger_id"]
 
         if status:
-            print(f" Booking confirmed for {passenger_id}")
+            print(f" Booking confirmed for passenge: {passenger_id}")
         else:
-            print(f" There is an issue while booking ride for {passenger_id}")
+            print(f" There is an issue while booking ride for passenger: {passenger_id}")
 
+
+fake = Faker()
+fake.locale = 'en_US'
 
 ride_details = {
-    "passenger_id": 1,
-    "pickup_address": "Empire State Building",
-    "pickup_latitude": 40.748817,
-    "pickup_longitude": -73.985428,
-    "drop_address": "Central Park, New York, NY 10022, USA",
-    "drop_latitude": 40.782865,
-    "drop_longitude": -73.965355,
+    "passenger_id": fake.random_int(min=1, max=5),
+    "pickup_address": fake.address(),
+    "pickup_latitude": fake.latitude(),
+    "pickup_longitude": fake.longitude(),
+    "drop_address": fake.address(),
+    "drop_latitude": fake.latitude(),
+    "drop_longitude": fake.longitude(),
     "estimate_duration": "1:20:00",
 }
 

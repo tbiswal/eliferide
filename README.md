@@ -61,7 +61,18 @@ FOREIGN KEY - passenger_id(passengers table id column)
 
 1. There is no conflict, e.g., we don't give two different rides at 9 AM to the same driver
 
-- Combining driver_id and start_time(DateTime) as unique can solve this issue
+- Using accurate driver status:
+
+  - Driver status can be true or false at one time. true means it can be assigned else not.
+  
+  - ride_assigned(ride is assigned to driver but driver not accepted) - status false
+  - ride_confirmed(pickup done) - status false
+  - ride_declined(ride declined by driver or cancelled by passenger) - status true
+  - ride_ended(drop done) - status true
+
+> If the driver status is false then search for another driver having status true
+
+- Another basic approach: Combining driver_id and start_time(DateTime) as unique can solve this issue at primary stage
 
 2. We want to give the ride to a lower-priced driver if possible.
 
