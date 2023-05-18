@@ -20,13 +20,18 @@ class BookRide:
     def confirm_booking(self):
         # Find driver for cheapest price and add to ride_details collection
         ride_details["driver_id"] = self.drivers.find_nearest_driver_id()
-        status = self.ride_model.insert_ride(ride_details)
+        ride_status = self.ride_model.insert_ride(ride_details)
         passenger_id = self.ride_details["passenger_id"]
 
-        if status:
-            print(f" Booking confirmed for passenge: {passenger_id}")
+        if ride_status:
+            print(
+                f" Booking confirmed for passenger: {passenger_id} " +
+                f"with driver {ride_details['driver_id']}")
         else:
-            print(f" There is an issue while booking ride for passenger: {passenger_id}")
+            print(
+                "There is an issue while booking ride for " +
+                f" passenger: {passenger_id} with driver" +
+                f" {ride_details['driver_id']}")
 
 
 fake = Faker()
