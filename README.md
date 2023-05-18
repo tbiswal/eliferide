@@ -15,7 +15,7 @@ You may assume as input a collection of rides. Each ride consists of pickup time
 ### Assumptions
 
 - Input - a collection of rides.
-- Ride price per mile - 2$
+- Distance unit is measured in kilometer
 - Initially, take five drivers and create a database of drivers
 - Three passengers who already signed up and existed in the database
 - Design the solution for thousand rides
@@ -144,6 +144,7 @@ Passengers
 ```
   pip install faker
   pip install mysql-connector-python
+  pip install geopy
 ```
 
 ### Further optimization

@@ -1,6 +1,8 @@
 
 from faker import Faker
 from modelRide import RideModel
+from modelDriver import DriverModel
+from utils import Utils
 from driver import Drivers
 
 
@@ -13,12 +15,11 @@ class BookRide:
     ) -> str:
         self.ride_details = ride_details
         self.ride_model = ride_model
-        self.drivers = Drivers
+        self.drivers = drivers
 
     def confirm_booking(self):
         # Find driver for cheapest price and add to ride_details collection
-        ride_details["driver_id"] = self.drivers.find_nearest_driver(
-            ride_details)
+        ride_details["driver_id"] = self.drivers.find_nearest_driver_id()
         status = self.ride_model.insert_ride(ride_details)
         passenger_id = self.ride_details["passenger_id"]
 
@@ -39,5 +40,6 @@ ride_details = {
     "estimate_duration": "1:20:00",
 }
 
-ride = BookRide(ride_details, RideModel())
+driver = Drivers(ride_details, DriverModel(), Utils())
+ride = BookRide(ride_details, RideModel(), driver)
 ride.confirm_booking()

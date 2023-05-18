@@ -24,11 +24,9 @@ class RideModel:
                     drop_address,
                     drop_latitude,
                     drop_longitude,
-                    estimate_duration,
-                    start_time,
-                    end_time
+                    estimate_duration
                     )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
 
         values = (
@@ -40,9 +38,7 @@ class RideModel:
             ride_details["drop_address"],
             ride_details["drop_latitude"],
             ride_details["drop_longitude"],
-            ride_details["estimate_duration"],
-            ride_details["start_time"],
-            ride_details["end_time"]
+            ride_details["estimate_duration"]
         )
 
         try:
